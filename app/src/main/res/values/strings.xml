@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ScriptQ</string>
+    <string name="new_script">New Script</string>
+    <string name="script_library">Script Library</string>
+</resources>
