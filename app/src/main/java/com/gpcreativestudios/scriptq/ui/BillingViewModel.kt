@@ -1,13 +1,16 @@
 package com.gpcreativestudios.scriptq.ui
 
+import android.app.Activity
+import android.widget.Toast
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableCornerRadius
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.revenuecat.purchases.Offerings
+import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.Purchases
 import com.revenuecat.purchases.getOfferingsWith
 import com.revenuecat.purchases.getCustomerInfoWith
+import com.revenuecat.purchases.purchasePackageWith
 
 class BillingViewModel : ViewModel() {
 
@@ -37,6 +40,22 @@ class BillingViewModel : ViewModel() {
             onSuccess = { customerInfo ->
                 // "pro" is used here as a placeholder for the entitlement ID.
                 _isProActive.postValue(customerInfo.entitlements["pro"]?.isActive == true)
+            }
+        )
+    }
+
+    fun purchasePackage(activity: Activity, packageToPurchase: Package, onComplete: () -> Unit) {
+        Purchases.sharedInstance.purchasePackageWith(
+            activity,
+            packageToPurchase,
+            onError = { error, userCancelled ->
+                if (!userCancelled) {
+                    Toast.makeText(activity, "Error: ${error.message}", Toast.LENGTH_LONG).show()
+                }
+            },
+            onSuccess = { _, customerInfo ->
+                _isProActive.postValue(customerInfo.entitlements["pro"]?.isActive == true)
+                onComplete()
             }
         )
     }

@@ -31,6 +31,11 @@
             android:label="Add New Script"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.PaywallActivity"
+            android:label="Go Premium"
+            android:exported="false" />
+
         <service
             android:name=".ui.FloatingPromptService"
             android:enabled="true"

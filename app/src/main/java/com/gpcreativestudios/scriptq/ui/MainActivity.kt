@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         val repository = ScriptRepository(database.scriptDao())
         ScriptViewModelFactory(repository)
     }
+    private val billingViewModel: BillingViewModel by viewModels()
+    private var isPremium = false
+    private var scriptCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,15 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
+
+        billingViewModel.isProActive.observe(this) { proActive ->
+            isPremium = proActive
+            if (isPremium) {
+                binding.adView.visibility = View.GONE
+            } else {
+                binding.adView.visibility = View.VISIBLE
+            }
+        }
 
         val adapter = ScriptAdapter { script ->
             if (Settings.canDrawOverlays(this)) {
@@ -49,12 +61,21 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
 
         scriptViewModel.allScripts.observe(this) { scripts ->
-            scripts?.let { adapter.submitList(it) }
+            scripts?.let { 
+                adapter.submitList(it)
+                scriptCount = it.size
+            }
         }
 
         binding.fab.setOnClickListener {
-            val intent = android.content.Intent(this, ScriptEditorActivity::class.java)
-            startActivity(intent)
+            if (isPremium || scriptCount < 3) {
+                val intent = Intent(this, ScriptEditorActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, PaywallActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this, "Upgrade to Premium for unlimited scripts", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

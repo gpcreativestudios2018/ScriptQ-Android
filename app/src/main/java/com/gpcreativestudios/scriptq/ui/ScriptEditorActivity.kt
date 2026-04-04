@@ -19,6 +19,7 @@ class ScriptEditorActivity : AppCompatActivity() {
         val repository = ScriptRepository(database.scriptDao())
         ScriptViewModelFactory(repository)
     }
+    private val billingViewModel: BillingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,14 @@ class ScriptEditorActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
+
+        billingViewModel.isProActive.observe(this) { isPremium ->
+            if (isPremium) {
+                binding.adView.visibility = View.GONE
+            } else {
+                binding.adView.visibility = View.VISIBLE
+            }
+        }
 
         binding.buttonSave.setOnClickListener {
             val title = binding.editTextTitle.text.toString()
