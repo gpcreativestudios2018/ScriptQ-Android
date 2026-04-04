@@ -11,13 +11,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageButton
+import android.widget.ScrollView
 import android.widget.TextView
 import com.gpcreativestudios.scriptq.R
+import kotlinx.coroutines.*
 
 class FloatingPromptService : Service() {
 
     private var mWindowManager: WindowManager? = null
     private var mFloatingWidget: View? = null
+    private val serviceScope = CoroutineScope(Dispatchers.Main + Job())
+    
+    private var isPlaying = false
+    private var scrollDelay = 50L
+    private var scrollJob: Job? = null
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -50,9 +57,34 @@ class FloatingPromptService : Service() {
         params.x = 100
         params.y = 100
 
-        mFloatingWidget?.findViewById<TextView>(R.id.script_text)?.text = text
+        val scrollView = mFloatingWidget?.findViewById<ScrollView>(R.id.script_scroll_view)
+        val textView = mFloatingWidget?.findViewById<TextView>(R.id.script_text)
+        textView?.text = text
 
+        val playPauseBtn = mFloatingWidget?.findViewById<ImageButton>(R.id.play_pause_btn)
+        val speedUpBtn = mFloatingWidget?.findViewById<ImageButton>(R.id.speed_up_btn)
+        val slowDownBtn = mFloatingWidget?.findViewById<ImageButton>(R.id.slow_down_btn)
         val closeButton = mFloatingWidget?.findViewById<ImageButton>(R.id.close_btn)
+
+        playPauseBtn?.setOnClickListener {
+            isPlaying = !isPlaying
+            if (isPlaying) {
+                playPauseBtn.setImageResource(android.R.drawable.ic_media_pause)
+                startScrolling(scrollView!!)
+            } else {
+                playPauseBtn.setImageResource(android.R.drawable.ic_media_play)
+                scrollJob?.cancel()
+            }
+        }
+
+        speedUpBtn?.setOnClickListener {
+            scrollDelay = (scrollDelay - 10L).coerceAtLeast(10L)
+        }
+
+        slowDownBtn?.setOnClickListener {
+            scrollDelay = (scrollDelay + 10L).coerceAtMost(200L)
+        }
+
         closeButton?.setOnClickListener {
             stopSelf()
         }
@@ -60,8 +92,19 @@ class FloatingPromptService : Service() {
         mWindowManager?.addView(mFloatingWidget, params)
     }
 
+    private fun startScrolling(scrollView: ScrollView) {
+        scrollJob?.cancel()
+        scrollJob = serviceScope.launch {
+            while (isActive && isPlaying) {
+                scrollView.smoothScrollBy(0, 2)
+                delay(scrollDelay)
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        serviceScope.cancel()
         if (mFloatingWidget != null) {
             mWindowManager?.removeView(mFloatingWidget)
         }
