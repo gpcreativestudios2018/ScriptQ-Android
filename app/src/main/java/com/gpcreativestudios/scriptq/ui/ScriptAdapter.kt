@@ -10,10 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gpcreativestudios.scriptq.R
 import com.gpcreativestudios.scriptq.data.Script
 
-class ScriptAdapter : ListAdapter<Script, ScriptAdapter.ScriptViewHolder>(ScriptsComparator()) {
+class ScriptAdapter(private val onItemClick: (com.gpcreativestudios.scriptq.data.Script) -> Unit) : ListAdapter<Script, ScriptAdapter.ScriptViewHolder>(ScriptsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScriptViewHolder {
-        return ScriptViewHolder.create(parent)
+        val holder = ScriptViewHolder.create(parent)
+        holder.itemView.setOnClickListener {
+            val position = holder.adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                onItemClick(getItem(position))
+            }
+        }
+        return holder
     }
 
     override fun onBindViewHolder(holder: ScriptViewHolder, position: Int) {

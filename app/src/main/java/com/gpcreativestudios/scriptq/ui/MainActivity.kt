@@ -1,6 +1,9 @@
 package com.gpcreativestudios.scriptq.ui
 
 import android.os.Bundle
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +26,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = ScriptAdapter()
+        val adapter = ScriptAdapter { script ->
+            if (Settings.canDrawOverlays(this)) {
+                val intent = Intent(this, FloatingPromptService::class.java)
+                intent.putExtra("SCRIPT_TEXT", script.textContent)
+                startService(intent)
+            } else {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                startActivity(intent)
+            }
+        }
         binding.recyclerview.adapter = adapter
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
 

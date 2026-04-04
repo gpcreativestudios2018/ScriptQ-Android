@@ -23,6 +23,11 @@
             android:name=".ui.ScriptEditorActivity"
             android:label="Add New Script"
             android:exported="false" />
+
+        <service
+            android:name=".ui.FloatingPromptService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
