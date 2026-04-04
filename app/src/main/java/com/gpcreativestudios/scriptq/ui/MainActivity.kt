@@ -32,12 +32,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.fab.setOnClickListener {
-            // Sample script for demonstration
-            val newScript = Script(
-                title = "New Script ${System.currentTimeMillis() % 1000}",
-                textContent = "This is a sample script content generated at ${System.currentTimeMillis()}."
-            )
-            scriptViewModel.insert(newScript)
+            val intent = android.content.Intent(this, ScriptEditorActivity::class.java)
+            startActivity(intent)
         }
     }
 }
