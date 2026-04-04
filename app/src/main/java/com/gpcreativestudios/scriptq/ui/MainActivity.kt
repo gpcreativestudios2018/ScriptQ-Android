@@ -11,6 +11,8 @@ import com.gpcreativestudios.scriptq.data.AppDatabase
 import com.gpcreativestudios.scriptq.data.Script
 import com.gpcreativestudios.scriptq.data.ScriptRepository
 import com.gpcreativestudios.scriptq.databinding.ActivityMainBinding
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.AdRequest
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MobileAds.initialize(this) {}
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 
         val adapter = ScriptAdapter { script ->
             if (Settings.canDrawOverlays(this)) {

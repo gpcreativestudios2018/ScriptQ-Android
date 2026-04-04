@@ -8,6 +8,8 @@ import com.gpcreativestudios.scriptq.data.AppDatabase
 import com.gpcreativestudios.scriptq.data.Script
 import com.gpcreativestudios.scriptq.data.ScriptRepository
 import com.gpcreativestudios.scriptq.databinding.ActivityScriptEditorBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 
 class ScriptEditorActivity : AppCompatActivity() {
 
@@ -22,6 +24,10 @@ class ScriptEditorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityScriptEditorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MobileAds.initialize(this) {}
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 
         binding.buttonSave.setOnClickListener {
             val title = binding.editTextTitle.text.toString()
