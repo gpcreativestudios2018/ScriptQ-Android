@@ -6,4 +6,26 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="midnight_900">#0A101B</color>
+    <color name="midnight_800">#111A29</color>
+    <color name="midnight_700">#1A2638</color>
+    <color name="ice_100">#F4F8FF</color>
+    <color name="ice_200">#D6E4FF</color>
+    <color name="ice_300">#A8C0FF</color>
+    <color name="aurora_blue">#6CA7FF</color>
+    <color name="aurora_cyan">#7BE7FF</color>
+    <color name="aurora_gold">#F6D08D</color>
+    <color name="glass_surface">#26FFFFFF</color>
+    <color name="glass_surface_strong">#33FFFFFF</color>
+    <color name="glass_surface_dark">#400C1422</color>
+    <color name="glass_stroke">#59FFFFFF</color>
+    <color name="glass_stroke_soft">#26FFFFFF</color>
+    <color name="text_primary">#F6F8FF</color>
+    <color name="text_secondary">#B4C0D8</color>
+    <color name="text_tertiary">#88A0C2</color>
+    <color name="accent_primary">#82B0FF</color>
+    <color name="accent_secondary">#7FE7FF</color>
+    <color name="accent_warm">#FFD59B</color>
+    <color name="danger_soft">#FF8A8A</color>
 </resources>

@@ -1,8 +1,20 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
 }
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
+val revenuecatKey = localProperties.getProperty("REVENUECAT_API_KEY") ?: ""
+val admobAppId = localProperties.getProperty("ADMOB_APP_ID") ?: ""
+val admobBannerId = localProperties.getProperty("ADMOB_BANNER_ID") ?: ""
 
 android {
     namespace = "com.gpcreativestudios.scriptq"
@@ -16,11 +28,15 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        
+        buildConfigField("String", "REVENUECAT_API_KEY", "\"$revenuecatKey\"")
+        buildConfigField("String", "ADMOB_BANNER_ID", "\"$admobBannerId\"")
+        manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -36,6 +52,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -45,6 +62,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
@@ -59,6 +77,9 @@ dependencies {
 
     // Google Mobile Ads
     implementation("com.google.android.gms:play-services-ads:23.0.0")
+
+    // Preferences
+    implementation("androidx.preference:preference-ktx:1.2.1")
 
     // RevenueCat
     implementation("com.revenuecat.purchases:purchases:7.8.0")

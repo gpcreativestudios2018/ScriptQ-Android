@@ -5,58 +5,290 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_premium_gradient"
     android:padding="16dp"
     tools:context=".ui.ScriptEditorActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/titleInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Script Title"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapSentences"
-            android:maxLines="1" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/contentInputLayout"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/editorPanel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:hint="Script Content"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSave"
-        app:layout_constraintTop_toBottomOf="@id/titleInputLayout">
+        android:backgroundTint="@color/glass_surface"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/glass_stroke"
+        app:strokeWidth="1dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextContent"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="top"
-            android:inputType="textMultiLine|textCapSentences" />
+            android:padding="18dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/editorLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_glass_panel_soft"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="8dp"
+                android:text="SCRIPT STUDIO"
+                android:textAllCaps="true"
+                android:textColor="@color/accent_secondary"
+                android:textSize="12sp"
+                android:letterSpacing="0.2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Save Script"
-        app:layout_constraintBottom_toTopOf="@+id/adView" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/titleInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:hint="Script Title"
+                app:boxBackgroundColor="@color/glass_surface_dark"
+                app:boxStrokeColor="@color/glass_stroke"
+                app:hintTextColor="@color/text_secondary"
+                app:layout_constraintTop_toBottomOf="@id/editorLabel">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/format_toolbar_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_glass_panel_soft"
+                android:padding="6dp"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@+id/titleInputLayout">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_format_bold"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="B"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold"
+                        app:strokeColor="@color/glass_stroke" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_format_italic"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="I"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="italic"
+                        app:strokeColor="@color/glass_stroke" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_format_underline"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="U"
+                        android:textColor="@color/text_primary"
+                        app:strokeColor="@color/glass_stroke" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="@color/glass_stroke_soft" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_font_sans"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="Sans"
+                        android:textColor="@color/text_primary"
+                        app:strokeColor="@color/glass_stroke" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_font_serif"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="Serif"
+                        android:textColor="@color/text_primary"
+                        app:strokeColor="@color/glass_stroke" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_font_mono"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="Mono"
+                        android:textColor="@color/text_primary"
+                        app:strokeColor="@color/glass_stroke" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/textPremiumFormattingHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_glass_panel_soft"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="7dp"
+                android:text="PRO: rich text styling"
+                android:textAllCaps="true"
+                android:textColor="@color/accent_warm"
+                android:textSize="11sp"
+                android:letterSpacing="0.16"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/format_toolbar_scroll" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/contentInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:hint="Script Content"
+                app:boxBackgroundColor="@color/glass_surface_dark"
+                app:boxStrokeColor="@color/glass_stroke"
+                app:hintTextColor="@color/text_secondary"
+                app:layout_constraintBottom_toTopOf="@+id/text_stats"
+                app:layout_constraintTop_toBottomOf="@id/textPremiumFormattingHint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="top"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/text_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="0 words • 0 min read"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toTopOf="@+id/buttonRowScroll" />
+
+            <HorizontalScrollView
+                android:id="@+id/buttonRowScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/buttonRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonImport"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="52dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="Import Pro"
+                        android:textColor="@color/text_primary"
+                        app:icon="@android:drawable/ic_menu_upload"
+                        app:strokeColor="@color/glass_stroke" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonPaste"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="Paste"
+                        android:textColor="@color/text_primary"
+                        app:icon="@android:drawable/ic_menu_edit"
+                        app:strokeColor="@color/glass_stroke" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonShare"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="Share"
+                        android:textColor="@color/text_primary"
+                        app:icon="@android:drawable/ic_menu_share"
+                        app:strokeColor="@color/glass_stroke" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonExport"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:text="Export Pro"
+                        android:textColor="@color/text_primary"
+                        app:icon="@android:drawable/ic_menu_save"
+                        app:strokeColor="@color/glass_stroke" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonSave"
+                        android:layout_width="wrap_content"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@color/accent_primary"
+                        android:text="Save"
+                        android:textColor="@color/midnight_900"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </HorizontalScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        ads:adUnitId="@string/admob_banner_placeholder"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

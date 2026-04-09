@@ -2,4 +2,5 @@
     <string name="app_name">ScriptQ</string>
     <string name="new_script">New Script</string>
     <string name="script_library">Script Library</string>
+    <string name="admob_banner_placeholder">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

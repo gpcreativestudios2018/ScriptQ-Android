@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_search"
+        android:title="Search Scripts"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:icon="@android:drawable/ic_menu_search" />
+        
+    <item
+        android:id="@+id/action_sort"
+        android:title="Sort By"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_sort_by_size">
+        <menu>
+            <item
+                android:id="@+id/sort_created"
+                android:title="Date Created" />
+            <item
+                android:id="@+id/sort_updated"
+                android:title="Date Modified" />
+            <item
+                android:id="@+id/sort_title"
+                android:title="Title (A-Z)" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_remote"
+        android:title="Remote Control"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="Settings"
+        app:showAsAction="never" />
+</menu>

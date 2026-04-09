@@ -4,73 +4,334 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_premium_gradient"
     android:padding="24dp"
     tools:context=".ui.PaywallActivity">
 
     <TextView
-        android:id="@+id/textViewTitle"
+        android:id="@+id/premiumBadge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upgrade to Premium"
-        android:textAppearance="?attr/textAppearanceHeadline4"
+        android:background="@drawable/bg_glass_panel_soft"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="SCRIPTQ PRO"
+        android:textAllCaps="true"
+        android:textColor="@color/accent_warm"
+        android:textSize="12sp"
+        android:letterSpacing="0.2"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/benefitsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/textViewTitle">
+    <ImageButton
+        android:id="@+id/buttonClose"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_glass_panel_soft"
+        android:contentDescription="Close"
+        android:padding="12dp"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/text_primary" />
 
-        <TextView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/paywallCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/glass_surface"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonBuy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/premiumBadge"
+        app:strokeColor="@color/glass_stroke"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
-            android:text="✓ No Ads"
-            android:textAppearance="?attr/textAppearanceSubtitle1"
-            app:drawableStartCompat="@android:drawable/checkbox_on_background" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="28dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:drawablePadding="8dp"
-            android:text="✓ Unlimited Scripts"
-            android:textAppearance="?attr/textAppearanceSubtitle1"
-            app:drawableStartCompat="@android:drawable/checkbox_on_background" />
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="The premium teleprompter experience."
+                android:textColor="@color/text_primary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:drawablePadding="8dp"
-            android:text="✓ Floating Pro Window"
-            android:textAppearance="?attr/textAppearanceSubtitle1"
-            app:drawableStartCompat="@android:drawable/checkbox_on_background" />
+            <TextView
+                android:id="@+id/textRequestedFeature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_glass_panel_soft"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="8dp"
+                android:text="Unlock studio tools"
+                android:textAllCaps="true"
+                android:textColor="@color/accent_secondary"
+                android:textSize="11sp"
+                android:letterSpacing="0.2"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textViewSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Unlock the polished workflow: richer prompting tools, cleaner sessions, and a setup that feels built for creators."
+                android:textColor="@color/text_secondary"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/planContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/planPrimaryCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/glass_surface_dark"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:checkedIconTint="@color/accent_primary"
+                    app:strokeColor="@color/accent_primary"
+                    app:strokeWidth="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="18dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textPrimaryPlanTag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_glass_panel_soft"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="6dp"
+                                android:text="BEST PICK"
+                                android:textAllCaps="true"
+                                android:textColor="@color/accent_warm"
+                                android:textSize="10sp"
+                                android:letterSpacing="0.2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textPrimaryPlanName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Annual Pro"
+                                android:textColor="@color/text_primary"
+                                android:textSize="21sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textPrimaryPlanDetail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Best value for creators who rehearse often."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textPrimaryPlanPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$49.99"
+                            android:textColor="@color/text_primary"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/planSecondaryCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/glass_surface_dark"
+                    android:visibility="gone"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/glass_stroke_soft"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="18dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textSecondaryPlanTag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_glass_panel_soft"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="6dp"
+                                android:text="FLEXIBLE"
+                                android:textAllCaps="true"
+                                android:textColor="@color/text_tertiary"
+                                android:textSize="10sp"
+                                android:letterSpacing="0.2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textSecondaryPlanName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Monthly Pro"
+                                android:textColor="@color/text_primary"
+                                android:textSize="21sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textSecondaryPlanDetail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Lower commitment while you test the full studio."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textSecondaryPlanPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$9.99"
+                            android:textColor="@color/text_primary"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="Every Pro plan includes mirror mode, remote control, rehearsal tools, premium formatting, import/export, unlimited scripts, and no ads."
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/benefitsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_panel_soft"
+                    android:drawablePadding="10dp"
+                    android:padding="16dp"
+                    android:text="Mirror mode, remote control, rehearsal tools"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    app:drawableStartCompat="@android:drawable/checkbox_on_background" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_glass_panel_soft"
+                    android:drawablePadding="10dp"
+                    android:padding="16dp"
+                    android:text="No ads, unlimited scripts, faster workflow"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    app:drawableStartCompat="@android:drawable/checkbox_on_background" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_glass_panel_soft"
+                    android:drawablePadding="10dp"
+                    android:padding="16dp"
+                    android:text="Designed to feel studio-grade, not utilitarian"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    app:drawableStartCompat="@android:drawable/checkbox_on_background" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Fetching price..."
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textBillingNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Your selection updates the button below."
+                android:textColor="@color/text_tertiary"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonBuy"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginBottom="16dp"
-        android:text="Buy Now"
-        app:layout_constraintBottom_toTopOf="@+id/textViewPrice" />
-
-    <TextView
-        android:id="@+id/textViewPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="Fetching price..."
-        android:textAppearance="?attr/textAppearanceBody1"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="18dp"
+        android:backgroundTint="@color/accent_primary"
+        android:text="Unlock Premium"
+        android:textColor="@color/midnight_900"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonMaybeLater"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Maybe later"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonBuy" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

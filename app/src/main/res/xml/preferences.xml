@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="Appearance">
+        <ListPreference
+            app:key="theme_preference"
+            app:title="Theme"
+            app:useSimpleSummaryProvider="true"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_values"
+            app:defaultValue="system" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Prompter Defaults">
+        <Preference
+            app:key="overlay_access"
+            app:title="Display over other apps"
+            app:summary="Required for prompting over other apps. Tap to open Android's overlay access list." />
+
+        <SeekBarPreference
+            app:key="default_scroll_speed"
+            app:title="Default Scroll Speed"
+            app:min="1"
+            android:max="20"
+            app:defaultValue="5" />
+
+        <SeekBarPreference
+            app:key="default_text_size"
+            app:title="Default Text Size"
+            app:min="12"
+            android:max="48"
+            app:defaultValue="18" />
+
+        <ListPreference
+            app:key="default_opacity"
+            app:title="Default Widget Opacity"
+            app:useSimpleSummaryProvider="true"
+            app:entries="@array/opacity_entries"
+            app:entryValues="@array/opacity_values"
+            app:defaultValue="0" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Premium">
+        <Preference
+            app:key="restore_purchases"
+            app:title="Restore Purchases"
+            app:summary="Restore a previous Premium subscription" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="About">
+        <Preference
+            app:key="about_version"
+            app:title="Version"
+            app:summary="1.0" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

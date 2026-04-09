@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_glass_panel_overlay"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/textPrompterBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_glass_panel_overlay_soft"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:text="PROMPTER READY"
+        android:textAllCaps="true"
+        android:textColor="@color/accent_secondary"
+        android:textSize="11sp"
+        android:letterSpacing="0.18"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textPrompterTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Your script is live."
+        android:textColor="@color/text_primary"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textPrompterMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Open the app you want to read over. The floating prompter is active and ready to position."
+        android:textColor="@color/text_secondary"
+        android:textSize="15sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonOpenTargetApp"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="22dp"
+        android:backgroundTint="@color/accent_primary"
+        android:text="Open target app"
+        android:textColor="@color/midnight_900"
+        android:textStyle="bold"
+        app:icon="@android:drawable/ic_menu_view"
+        app:iconTint="@color/midnight_900" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonBackToLibrary"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Back to library"
+        android:textColor="@color/text_primary"
+        app:strokeColor="@color/glass_stroke" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonStopPrompter"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="6dp"
+        android:text="Stop prompter"
+        android:textColor="@color/danger_soft" />
+
+</LinearLayout>
